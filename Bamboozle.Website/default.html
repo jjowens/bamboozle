@@ -4,8 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/default.css"/>
+    <script src="assets/scripts/moment/moment.js"></script>
 </head>
 <body>
-    
+    <div id="app" class="bamboozler-frame">
+        <div class="tele-header">
+            <div class="tele-header-left tele-pagenumber">390</div>
+            <div class="tele-header-middle tele-title">Teletext</div>
+            <div class="tele-header-right">
+                <span class="tele-date">{{ currentdate }}</span> 
+                <span class="tele-time">{{ currenttime }}</span>
+            </div>
+        </div>
+        <br/>
+        <div>
+            <h1 class="tele-banner-header">Bamboozle!</h1>
+            <hr class="tele-underline"/>
+        </div>
+        <div v-if="quizstart === false">
+            <div>
+                <p>Bamber Boozler poses {{ maxcorrectanswers }} questions. Answer using the fastext keys. One wrong answer and you must try again.</p>
+                <p>Can you answer all {{ maxcorrectanswers }}  in one attempt?</p>
+            </div>
+            <div>
+                <div class="tele-speech-bubble">Good day. Let's get started on some general knowledge questions. Ready?</div>
+                <div class="tele-red-text tele-cursor" v-on:click="startQuiz">Press RED to start</div>
+                <div class="tele-bamber-profile">
+                    <div class="temp-bob">
+                        &nbsp;
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <div v-if="quizstart === true">
+            <div>
+                <div class="tele-speech-bubble">{{ currentquestion.Question}}</div>
+                <div class="tele-bamber-profile">
+                    <div class="temp-bob">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div>
+                <div class="tele-answer" v-on:click="validateAnswer">
+                    <div class="button red-button">&nbsp;</div>
+                    <div>{{ currentquestion.Answers[0] }}</div>
+                </div>
+                <div class="tele-answer" v-on:click="validateAnswer">
+                    <div class="button green-button">&nbsp;</div>
+                    <div>{{ currentquestion.Answers[1] }}</div>
+                </div>
+                <div class="tele-answer" v-on:click="validateAnswer">
+                    <div class="button yellow-button" >&nbsp;</div>
+                    <div>{{ currentquestion.Answers[2] }}</div>
+                </div>
+                <div class="tele-answer" v-on:click="validateAnswer">
+                    <div class="button babyblue-button">&nbsp;</div>
+                    <div>{{ currentquestion.Answers[3] }}</div>
+                </div>
+            </div>
+        </div>
+        <div v-if="quizfailed == true">
+            <p>You did not win</p>
+        </div>
+        <div v-if="quizsuccess == true">
+            <p>You win!</p>
+        </div>
+        <div class="tele-footer">
+            <h1>GO DIGITAL! GO TO PAGE 204</h1>
+        </div>
+    </div>
+
+    <script src="assets/scripts/axios.min.js"></script>
+    <script src="assets/scripts/vue.js"></script>
+    <script src="assets/scripts/quiz-vue.js"></script>
 </body>
 </html>
