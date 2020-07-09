@@ -1,0 +1,35 @@
+{
+    "Title": "General Knowledge Quiz",
+    "Questions": [
+        {
+            "Text": "Who was the actor who portrayed Iron Man in the Marvel movies?",
+            "Answers": {
+                "Answer1": "Robert Downey Jnr",
+                "Answer2": "Chris Hemsworth",
+                "Answer3": "Paul Bettany",
+                "Answer4": "Paul Rudd"
+            },
+            "CorrectAnswer": "Robert Downey Jnr"
+        },
+        {
+            "Text": "Josh Brolin played a character who stole a case of money from a dangerous hitman. Name that movie",
+            "Answers": {
+                "Answer1": "No Country for Old Men",
+                "Answer2": "Oldboy",
+                "Answer3": "A Simple Plan",
+                "Answer4": "Fargo"
+            },
+            "CorrectAnswer": "No Country for Old Men"
+        },
+        {
+            "Text": "Anatomy. In your body, where would you find metatarsal bones?",
+            "Answers": {
+                "Answer1": "Hand",
+                "Answer2": "Foot",
+                "Answer3": "Hip",
+                "Answer4": "Knee"
+            },
+            "CorrectAnswer": "Foot"
+        }
+    ]
+}
