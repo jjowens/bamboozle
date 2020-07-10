@@ -2,34 +2,43 @@
     "Title": "General Knowledge Quiz",
     "Questions": [
         {
-            "Text": "Who was the actor who portrayed Iron Man in the Marvel movies?",
-            "Answers": {
-                "Answer1": "Robert Downey Jnr",
-                "Answer2": "Chris Hemsworth",
-                "Answer3": "Paul Bettany",
-                "Answer4": "Paul Rudd"
-            },
+            "Question": "Who was the actor who portrayed Iron Man in the Marvel movies?",
+            "Answers": [ 
+                "Robert Downey Jnr",
+                "Chris Hemsworth",
+                "Paul Bettany",
+                "Paul Rudd"
+            ],
             "CorrectAnswer": "Robert Downey Jnr"
         },
         {
-            "Text": "Josh Brolin played a character who stole a case of money from a dangerous hitman. Name that movie",
-            "Answers": {
-                "Answer1": "No Country for Old Men",
-                "Answer2": "Oldboy",
-                "Answer3": "A Simple Plan",
-                "Answer4": "Fargo"
-            },
+            "Question": "Josh Brolin played a character who stole a case of money from a dangerous hitman. Name that movie",
+            "Answers": [
+                "A Simple Plan",
+                "No Country for Old Men",
+                "Oldboy",
+                "Fargo"
+            ],
             "CorrectAnswer": "No Country for Old Men"
         },
         {
-            "Text": "Anatomy. In your body, where would you find metatarsal bones?",
-            "Answers": {
-                "Answer1": "Hand",
-                "Answer2": "Foot",
-                "Answer3": "Hip",
-                "Answer4": "Knee"
-            },
+            "Question": "Anatomy. In your body, where would you find metatarsal bones?",
+            "Answers": [
+                "Hand",
+                "Foot",
+                "Hip",
+                "Knee"
+            ],
             "CorrectAnswer": "Foot"
+        },
+        {
+            "Question": "History. Winston Churchill became Prime Minister in 1940. Who was the previous Prime Minister?",
+            "Answers": [
+                "Ramsay MacDonald",
+                "Clement Attlee",
+                "Neville Chamberlain"
+            ],
+            "CorrectAnswer": "Neville Chamberlain"
         }
     ]
 }

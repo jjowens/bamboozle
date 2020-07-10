@@ -3,77 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Teletext</title>
     <link rel="stylesheet" type="text/css" href="assets/css/default.css"/>
 </head>
 <body>
     <div id="app" class="bamboozler-frame">
         <div class="tele-header">
-            <div class="tele-header-left tele-pagenumber">390</div>
+            <div class="tele-header-left tele-pagenumber">
+                <input v-model="pageNumber" class="tele-page-number" v-on:change="updatePageNumber"/>
+            </div>
             <div class="tele-header-middle tele-title">Teletext</div>
             <div class="tele-header-right">
-                <span class="tele-date">Jul20</span> 
-                <span class="tele-time">10:15:00</span>
+                <span class="tele-date">{{ currentDate }}</span> 
+                <span class="tele-time">{{ currentTime }}</span>
             </div>
         </div>
-        <br/>
-        <div>
-            <h1 class="tele-banner-header">Bamboozle!</h1>
-            <hr class="tele-underline"/>
-        </div>
-        <div v-if="quizstart === false">
+        <div class="clearRow"></div>
+        <div v-if="currentPageNumber == 390">
             <div>
-                <p>Bamber Boozler poses 12 questions. Answer using the fastext keys. One wrong answer and you must try again.</p>
-                <p>Can you answer all 12 in one attempt?</p>
+                <h1 class="tele-banner-header">Bamboozle!</h1>
+                <hr class="tele-underline"/>
             </div>
-            <div>
-                <div class="tele-speech-bubble">Good day. Let's get started on some general knowledge questions. Ready?</div>
-                <div class="tele-red-text tele-cursor" v-on:click="startQuiz">Press RED to start</div>
-                <div class="tele-bamber-profile">
-                    <div class="temp-bob">
-                        &nbsp;
+            <div v-if="quizIntro === true">
+                <div>
+                    <p>Bamber Boozler poses {{ maxCorrectAnswers }} questions. Answer using the fastext keys. One wrong answer and you must try again.</p>
+                    <p>Can you answer all {{ maxCorrectAnswers }}  in one attempt?</p>
+                </div>
+                <div>
+                    <div class="tele-speech-bubble">Good day. Let's get started on some general knowledge questions. Ready?</div>
+                    <div class="tele-red-text tele-cursor" v-on:click="startQuiz">Press RED to start</div>
+                    <div class="tele-bamber-profile">
+                        <div class="temp-bamber">
+                            <img src="assets/images/bamber.jpg"/>
+                        </div>
+                    </div>
+                    <div class="clearRow"></div>
+                </div>
+            </div>
+            <div class="clearRow"></div>
+            <div v-if="quizStart === true">
+                <div>
+                    <div class="tele-speech-bubble">{{ currentQuestion.Question}}</div>
+                    <div class="tele-bamber-profile">
+                        <div class="temp-bamber">
+                            <img src="assets/images/bamber.jpg"/>
+                        </div>
                     </div>
                 </div>
-                <div style="clear: both;"></div>
-            </div>
-        </div>
-        <div v-if="quizstart === true">
-            <div>
-                <div class="tele-speech-bubble">Who played Iron Man in the Marvel movies?</div>
-                <div class="tele-bamber-profile">
-                    <div class="temp-bob">
-                        &nbsp;
+                <div class="clearRow"></div>
+                <div>
+                    <div class="tele-answer" v-if="currentQuestion.Answers[0] !== undefined" v-on:click="validateAnswer(currentQuestion.Answers[0])">
+                        <div class="button red-button">&nbsp;</div>
+                        <div>{{ currentQuestion.Answers[0] }}</div>
+                    </div>
+                    <div class="tele-answer" v-if="currentQuestion.Answers[1] !== undefined" v-on:click="validateAnswer(currentQuestion.Answers[1])">
+                        <div class="button green-button">&nbsp;</div>
+                        <div>{{ currentQuestion.Answers[1] }}</div>
+                    </div>
+                    <div class="tele-answer" v-if="currentQuestion.Answers[2] !== undefined" v-on:click="validateAnswer(currentQuestion.Answers[2])">
+                        <div class="button yellow-button" >&nbsp;</div>
+                        <div>{{ currentQuestion.Answers[2] }}</div>
+                    </div>
+                    <div class="tele-answer" v-if="currentQuestion.Answers[3] !== undefined" v-on:click="validateAnswer(currentQuestion.Answers[3])">
+                        <div class="button babyblue-button">&nbsp;</div>
+                        <div>{{ currentQuestion.Answers[3] }}</div>
                     </div>
                 </div>
             </div>
-            <div style="clear: both;"></div>
-            <div>
-                <div class="tele-answer">
-                    <div class="button red-button">&nbsp;</div>
-                    <div>Actor 1</div>
+            <div v-if="quizFailed === true">
+                <div>
+                    <div class="tele-speech-bubble">
+                        <p>Unfortunately, you did not answer that question correctly. Would you like to try again?</p>
+                    </div>
+                    <div class="tele-bamber-profile">
+                        <div class="temp-bamber">
+                            <img src="assets/images/bamber.jpg"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="tele-answer">
-                    <div class="button green-button">&nbsp;</div>
-                    <div>Actor 2</div>
+                <div class="tele-red-text tele-cursor" v-on:click="resetQuiz">Press RED to restart quiz</div>
+                <div class="clearRow"></div>            
+            </div>
+            <div v-if="quizSuccess === true">
+                <div>
+                    <div class="tele-speech-bubble">
+                        <p>Well done, you've answered all {{ maxCorrectAnswers }} questions correctly!. Would you like to try again?</p>
+                    </div>
+                    <div class="tele-bamber-profile">
+                        <div class="temp-bamber">
+                            <img src="assets/images/bamber.jpg"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="tele-answer">
-                    <div class="button yellow-button">&nbsp;</div>
-                    <div>Actor 3</div>
+                <div class="tele-red-text tele-cursor" v-on:click="resetQuiz">Press RED to restart quiz</div>
+                <div class="clearRow"></div>
+            </div>
+            <div v-if="ranOutOfQuestions === true">
+                <div>
+                    <div class="tele-speech-bubble">
+                        <p>We have no more questions! There were supposed to be {{ maxCorrectAnswers }} questions but there were only {{ totalQuestions }}.</p>
+                        <p>Bamber is sad!</p>
+                    </div>
+                    <div class="tele-bamber-profile">
+                        <div class="temp-bamber">
+                            <img src="assets/images/bamber.jpg"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="tele-answer">
-                    <div class="button babyblue-button">&nbsp;</div>
-                    <div>Actor 4</div>
-                </div>
+                <div class="clearRow"></div>
+            </div>
+            <div class="clearRow"></div>
+            <div class="tele-footer">
+                <h1>NEED A HOLIDAY? GO TO PAGE 200</h1>
             </div>
         </div>
-        <div v-if="quizfailed == true">
-            <p>You did not win</p>
-        </div>
-        <div v-if="quizsuccess == true">
-            <p>You win!</p>
-        </div>
-        <div class="tele-footer">
-            <h1>GO DIGITAL! GO TO PAGE 204</h1>
+        <div v-if="currentPageNumber == 200">
+            <div>
+                <h1 class="tele-banner-header">Holidays!</h1>
+                <hr class="tele-underline"/>
+            </div>
+            <div>
+                <img src="assets/images/holidays.jpg"/>
+            </div>
+            <div class="tele-footer">
+                <h1>WANT TO PLAY A QUIZ? GO TO PAGE 390</h1>
+            </div>
         </div>
     </div>
 
