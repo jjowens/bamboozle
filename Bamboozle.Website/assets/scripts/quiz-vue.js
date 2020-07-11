@@ -16,9 +16,14 @@ var app = new Vue({
         totalQuestions: 0,
         currentPageNumber: 0,
         pageNumber: 0,
-        showQuiz: true
+        showQuiz: true,
+        validPageNumbers: [],
+        pageNotFound: false
     },
     mounted: function () {
+        this.validPageNumbers.push(200);
+        this.validPageNumbers.push(390);
+
         var initalPageNumber = 390;
 
         this.currentPageNumber = initalPageNumber;
@@ -38,7 +43,7 @@ var app = new Vue({
 
             var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
-            this.currentDate = months[date.getMonth()] + String(date.getDay()).padStart(2, '0');
+            this.currentDate = months[date.getMonth()] + String(date.getDate()).padStart(2, '0');
             this.updateDatetime();
         },
         updateDatetime: function(event) {
@@ -50,9 +55,16 @@ var app = new Vue({
             this.quizIntro = false;
             this.quizStart = true;
         },
+        goToPage: function (val) {
+            this.pageNumber = val;
+            this.updatePageNumber();            
+        },
         updatePageNumber: function (event) {
             this.currentPageNumber = this.pageNumber;
-            console.log("Hiya, " + this.pageNumber);
+
+            var pageExists = this.validPageNumbers.indexOf(this.pageNumber);
+
+            this.pageNotFound = (pageExists === -1);
         },
         resetQuiz: function (event) {
             this.quizStart = false;
@@ -90,8 +102,6 @@ var app = new Vue({
                 });
         },
         validateAnswer: function(selectedAnswer) {
-            console.log(selectedAnswer + " + " + this.currentQuestion.CorrectAnswer + " = " + (this.currentQuestion.CorrectAnswer === selectedAnswer));
-
             if (this.currentQuestion.CorrectAnswer === selectedAnswer) {
                 this.countCorrectAnswers = this.countCorrectAnswers + 1;
                 this.nextQuestion();

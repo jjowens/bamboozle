@@ -2,7 +2,6 @@ body {
     background-color: black;
     color: white;
     font-family: 'Courier New', Courier, monospace;
-    font-smooth: never;
     -webkit-font-smoothing: none;
 }
 
@@ -107,4 +106,43 @@ body {
     background-color: black;
     color: white;
     border: none;
+}
+
+.tele-footer-select {
+    cursor: pointer;
+}
+
+.holiday-palm-tree {
+    float: left;
+    margin-right: 25px;
+}
+
+.holiday-offers {
+    float: left;
+    color: white;
+}
+
+.holiday-offers-location {
+    color: yellow;
+    text-transform: uppercase;
+}
+
+.holiday-offers h2 {
+    color: yellow;
+    padding: 0px;
+    margin: 0px;
+}
+
+.page-text {
+    clear: both;
+    cursor: pointer;
+}
+
+.page-text {
+    float: left;
+    color: yellow;
+}
+
+.page-text-number {
+    float: right;
 }

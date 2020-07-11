@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teletext</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/default.min.css"/>
 </head>
 <body>
     <div id="app" class="bamboozler-frame">
@@ -110,23 +110,48 @@
                         </div>
                     </div>
                 </div>
+                <div class="tele-red-text tele-cursor" v-on:click="resetQuiz">Press RED to restart quiz</div>
                 <div class="clearRow"></div>
             </div>
             <div class="clearRow"></div>
-            <div class="tele-footer">
+            <div class="tele-footer tele-footer-select" v-on:click="goToPage(200)">
                 <h1>NEED A HOLIDAY? GO TO PAGE 200</h1>
             </div>
         </div>
         <div v-if="currentPageNumber == 200">
             <div>
-                <h1 class="tele-banner-header">Holidays!</h1>
+                <h1 class="tele-banner-header">Holidays</h1>
                 <hr class="tele-underline"/>
             </div>
             <div>
-                <img src="assets/images/holidays.jpg"/>
+                <div class="holiday-palm-tree">
+                    <img src="assets/images/palm-tree.jpg"/>
+                </div>
+                <div class="holiday-offers">
+                    <h2 class="offers-headline">HOLIDAY OFFER:</h2>
+                    <p>Call 555-4352. Give Quote Code</p>
+                    <p><span class="holiday-offers-location">Barcelona, Spain</span> Five nights. 3 start hotel. Quote Code BAR53</p>
+                    <p><span class="holiday-offers-location">Rome, Italy</span> Two nights. 5 star hotel. Quote Code ROM25</p>
+                    <p><span class="holiday-offers-location">Prague, Poland</span> Three nights. 4 star hotel. Quote Code PRA34</p>
+                </div>
             </div>
-            <div class="tele-footer">
+            <div class="clearRow"></div>
+            <div class="tele-footer tele-footer-select" v-on:click="goToPage(390)">
                 <h1>WANT TO PLAY A QUIZ? GO TO PAGE 390</h1>
+            </div>
+        </div>
+        <div v-if="pageNotFound === true">
+            <div>
+                <h1 class="tele-banner-header">Page Not Found</h1>
+            </div>
+            <div>
+                <p>Page {{ currentPageNumber }} is not recognised. Try those below. This is not a full blown Teletext service. Sorry!</p>
+            </div>
+            <div class="page-text-row" v-on:click="goToPage(390)">
+                <div class="page-text"><p>Bamboozle</p></div><div class="page-text-number"><p>390</p></div>
+            </div>
+            <div class="page-text-row"  v-on:click="goToPage(200)">
+                <div class="page-text"><p>Holidays</p></div><div class="page-text-number"><p>200</p></div>
             </div>
         </div>
     </div>
